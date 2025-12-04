@@ -1,6 +1,6 @@
-
-def read(df):
-    df = pd.read_json('/content/orders_simple.json')
+import pandas as pd
+def read():
+    df = pd.read_json('C:\\Users\\ariel\kodkod\\tests\DATA-_TEST\orders_simple.json')
     return df
 
 
@@ -14,12 +14,12 @@ def exchange(df):
     df['items_html'] = df['items_html'].astype(str)
     return  df.info()
 
-def HTML_downloads(df):
+def html_downloads(df):
     df['items_html'] = df['items_html'].str.replace(('<'), '', regex=True)
     df['items_html'] = df['items_html'].str.replace(('>'), '', regex=True)
     df['items_html'] = df['items_html'].str.replace(('/'), '', regex=True)
     return df
-def cheak_cupon(df):
+def check_coupon(df):
     df['coupon_used'].str.replace(r"!""!", r"no_coupon", regex=True)
     return df
 def date(df):
@@ -41,4 +41,8 @@ def drop(df):
 def delivery_status(df):
     df['delivery_status'] = ['delayed' if x > 7 else 'on_time' for x in df['shipping_days']]
     return df
+
+def save(df):
+    clean_orders_207827924= df.to_csv('output.csv', index=False)
+    return clean_orders_207827924
 
